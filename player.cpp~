@@ -1,0 +1,176 @@
+#include "player.h"
+#include "gamedata.h"
+#include "frameFactory.h"
+#include "viewport.h"
+#include "collisionStrategy.h"
+#include "health.h"
+Player::Player( const std::string& name) : 
+  MultiSprite(name),
+  strategy(),
+  isExploding(false),
+  initialVelocity(getVelocity()),
+  explosion(NULL),
+  godMode(false),
+  isPlayer(false),
+  isSmartSprite(false) //ai
+{}
+
+Player::Player(const Player& s) :
+  MultiSprite(s),
+  strategy(s.strategy),
+  isExploding(s.isExploding),
+  initialVelocity(s.initialVelocity),
+  explosion(s.explosion),
+  godMode(s.godMode),
+  isPlayer(s.isPlayer)
+{}
+
+Player::~Player(){
+	if(explosion){
+      delete explosion;
+      explosion = NULL;
+    }
+}
+
+
+void Player::stop(){
+    setVelocityX(0.5 * getVelocityX());
+    setVelocityY(0);
+}
+
+void Player::left(){
+  if( getX() > 0){
+	  setVelocityX(-initialVelocity[0]);
+  }
+}
+
+void Player::right(){
+  if( getX() < worldWidth-frameWidth){
+	  setVelocityX(initialVelocity[0]);
+  }
+}
+
+void Player::up(){  
+  if( getY() > 0){
+	  setVelocityY(initialVelocity[1]);
+  }
+}
+
+void Player::down(){
+  if( getY() < worldHeight-frameHeight){
+	  setVelocityY(-initialVelocity[1]);
+  }
+}
+void Player::draw() const{
+	
+	if(explosion && explosion->chunkCount() != 0){
+		explosion->draw();
+    }
+    else{
+		MultiSprite::draw();
+	}
+}
+
+bool Player::collidedWith(const Drawable* d) {
+  bool bRet = false;
+  bRet = strategy.execute(*this, *d);
+  if(bRet){
+    if(!isExploding){
+	  
+      isExploding = true;
+    }
+  }
+  else{
+    isExploding = false;
+  }
+  return bRet;
+}
+
+void Player::explode(){
+    if(true){
+        if(!explosion){
+            explosion = new ExplodingSprite(Sprite(getName(), getPosition(), getVelocity(), frames[currentFrame]));
+		}
+    }
+}
+
+void Player::update(Uint32 ticks) {
+	if(explosion){
+		explosion->update(ticks);
+      if(explosion->chunkCount() == 0){
+          delete explosion;
+          Health::getInstance().update();
+          explosion = NULL;
+      }
+      return;
+    }
+    else{
+	if(!isPlayer){
+		MultiSprite::update(ticks);
+	}
+	else{
+		advanceFrame(ticks);
+		Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.003;
+		setPosition(getPosition() + incr*2);
+		if( getX() < 0){
+		  setVelocityX( abs( getVelocityX() ) );
+		}
+		if( getX() > worldWidth-frameWidth){
+		  setVelocityX( -abs( getVelocityX() ) );
+		}
+		if( getY() < 0){
+		  setVelocityY(abs( getVelocityY() ) );
+		}
+		if( getY() > worldHeight-frameHeight){
+		  setVelocityY(-abs( getVelocityY() ) );
+		}
+    stop();
+	}
+  }
+}
+
+
+
+//ai smartsprite
+
+void Player::goLeft()  {
+  if (X() > 0) velocityX( -abs(velocityX()) ); 
+}
+void Player::goRight() { velocityX( fabs(velocityX()) ); }
+void Player::goUp()    { velocityY( -fabs(velocityY()) ); }
+void Player::goDown()  { velocityY( fabs(velocityY()) ); }
+
+void Player::smartSpriteDraw() const {
+  Sprite::draw();
+  int x = 10+ X() - Viewport::getInstance().X();
+  int y = 10+ Y() - Viewport::getInstance().Y();
+  std::stringstream strm;
+  strm << currentMode;
+  io.printMessageBlackAt( strm.str(), x, y); 
+}
+
+void Player::smartSpriteUpdate(Uint32 ticks) {
+  Sprite::update(ticks);
+  float x= X()+getFrame()->getWidth()/2;
+  float y= Y()+getFrame()->getHeight()/2;
+  float ex= playerPos[0]+playerWidth/2;
+  float ey= playerPos[1]+playerHeight/2;
+  float distanceToEnemy = ::distance( x, y, ex, ey );
+
+  if  ( currentMode == NORMAL ) {
+    if(distanceToEnemy < safeDistance) currentMode = EVADE;
+  }
+  else if  ( currentMode == EVADE ) {
+    if(distanceToEnemy > safeDistance) currentMode=NORMAL;
+    else {
+      if ( x < ex ) goLeft();
+      if ( x > ex ) goRight();
+      if ( y < ey ) goUp();
+      if ( y > ey ) goDown();
+    }
+  }
+}
+
+
+
+

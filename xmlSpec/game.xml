@@ -1,0 +1,179 @@
+<?xml version = "1.0"?>
+<GameData>
+<!-- screenTitle is also used to identify you and your animation. 
+     So make sure to include your name as part of the screenTitle -->
+
+
+<screenTitle>
+<title>
+Eagle Hunt by Pratyush Singh
+</title>
+</screenTitle>
+<maxStringSize>50</maxStringSize>
+
+<frameCapOn>true</frameCapOn>
+<period>17</period>
+
+<maxFrames>700</maxFrames>
+<username>pratyus</username>
+
+<window>
+  <width>800</width>
+  <height>448</height>
+</window>
+
+<view>
+  <width>800</width>
+  <height>448</height>
+</view>
+
+<world>
+  <width>5000</width>
+  <height>448</height>
+</world>
+
+<safeDistance>175</safeDistance>
+<farDistance>500</farDistance>
+
+<hud>
+	<width>200</width>
+	<height>350</height>
+	<start x="30" y="20"/>
+	<color red="255" green="255" blue="0"/>
+	<time>3</time>
+</hud>
+
+<sea>
+  <file>images/sea.png</file>
+  <factor>1</factor>
+  <transparency>true</transparency>
+</sea>
+<sky>
+  <file>images/sky.png</file>
+  <factor>5</factor>
+  <transparency>true</transparency>
+</sky>
+
+<city>
+  <file>images/city.png</file>
+  <factor>3</factor>
+  <transparency>true</transparency>
+</city>
+
+<mountain>
+  <file>images/mountain.png</file>
+  <factor>4</factor>
+  <transparency>true</transparency>
+</mountain>
+
+<eagle>
+  <file>images/eagle.png</file>
+  <startLoc x="120" y="180"/>
+  <count> 4 </count>
+  <frames>8</frames>
+  <bullet>raybeam</bullet>
+  <frameInterval>100</frameInterval>
+  <speedX>-200</speedX>
+  <speedY>200</speedY>
+  <transparency>true</transparency>
+  <chunk>
+    <comeback>false</comeback>
+    <size>10</size>
+    <distance>60</distance>
+  </chunk>
+</eagle>
+
+<raybeam>
+  <file>images/raybeam.png</file>
+  <interval>300</interval>
+  <distance>320</distance>
+  <startLoc x="100" y="100"/>
+  <speedX>500</speedX>
+  <speedY>0</speedY>
+  <strategy>rectangular</strategy>
+</raybeam>
+
+<enemy>
+  <file>images/enemy.png</file>
+  <startLoc x="1220" y="180"/>
+  <count> 6 </count>
+  <frames>6</frames>
+  <frameInterval>100</frameInterval>
+  <speedX>-200</speedX>
+  <speedY>200</speedY>
+  <transparency>true</transparency>
+  <chunk>
+    <comeback>false</comeback>
+    <size>5</size>
+    <distance>60</distance>
+  </chunk>
+</enemy>
+
+<health>
+	<length>100</length>
+	<increments>10</increments>
+	<x>300</x>
+	<y>20</y>
+	<width>150</width>
+	<height>25</height>
+</health>
+<home>
+  <file>images/home.png</file>
+  <startLoc x="4775" y="70"/>
+  <count> 1 </count>
+  <frames>1</frames>
+  <frameInterval>100</frameInterval>
+  <speedX>-0</speedX>
+  <speedY>0</speedY>
+  <transparency>true</transparency>
+</home>
+
+
+<crow>
+  <file>images/crow.png</file>
+  scale/max
+  <scale> 
+	  <max>0.25 </max>
+	  <min>1.5 </min>
+  </scale>
+  <startLoc x="80" y="50"/>
+  <count> 10 </count>
+  <frames>6</frames>
+  <frameInterval>100</frameInterval>
+  <speedX>-200</speedX>
+  <speedY>200</speedY>
+  <transparency>true</transparency>
+</crow>
+
+<shark>
+  <file>images/shark2.png</file>
+  <startLoc x="80" y="320"/>
+  <count> 4 </count>
+  <frames>16</frames>
+  <frameInterval>100</frameInterval>
+  <speedX>-200</speedX>
+  <speedY>200</speedY>
+  <transparency>true</transparency>
+</shark>
+
+<fish>
+  <file>images/fish.png</file>
+  <startLoc x="80" y="320"/>
+  <count> 4 </count>
+  <frames>12</frames>
+  <frameInterval>100</frameInterval>
+  <speedX>-200</speedX>
+  <speedY>200</speedY>
+  <transparency>true</transparency>
+</fish>
+
+<font name="font">
+  <file>fonts/arial.ttf</file>
+  <size>18</size>
+  <red>255</red>
+  <green>255</green>
+  <blue>0</blue>
+  <alpha>0</alpha>
+</font>
+
+</GameData>
