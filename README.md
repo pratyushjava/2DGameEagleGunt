@@ -6,6 +6,7 @@
 
 https://drive.google.com/file/d/0B0BdqQ3xx0HPOC1hX2QxRTJ1Tzg/view?usp=sharing
 
+![](pratyush.gif)
 
 
 This game has following features.
