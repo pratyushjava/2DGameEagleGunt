@@ -6,6 +6,10 @@
 
 ![](pratyush.gif)
 
+![](pratyush10fps.gif)
+
+
+
 
 This game has following features.
 
