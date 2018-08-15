@@ -4,8 +4,6 @@
 
 # SnapShot of the Game. Enjoy watching!
 
-![](pratyush.gif)
-
 ![](pratyush10fps.gif)
 
 
