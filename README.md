@@ -33,4 +33,4 @@ This game has following features.
 
 11. AI when the player tries to skip away from enimies the enimies tend to chase the player. implemented through observer patern.
 
-    Here player is a subject as well as observer. since my player and enimies both are implemented through same player class.
+
